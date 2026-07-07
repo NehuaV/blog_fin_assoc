@@ -3,12 +3,26 @@ import { Image } from "astro:assets";
 import heroImage from "../assets/hero-usi.png";
 
 const tickerItems = [
-  "SMI +0.4%", "EURCHF 0.9412", "EBITDA", "ALPHA", "DCF",
-  "CHF/USD", "BASIS PTS", "IRR", "EV/EBITDA", "P/E 18.4x",
-  "SNB +0.25%", "WACC", "FREE CASH FLOW", "BETA 0.92",
+  "SMI +0.4%",
+  "EURCHF 0.9412",
+  "EBITDA",
+  "ALPHA",
+  "DCF",
+  "CHF/USD",
+  "BASIS PTS",
+  "IRR",
+  "EV/EBITDA",
+  "P/E 18.4x",
+  "SNB +0.25%",
+  "WACC",
+  "FREE CASH FLOW",
+  "BETA 0.92",
 ];
 ---
-<section class="relative h-[90vh] min-h-140 flex items-center overflow-hidden bg-brand-navy">
+
+<section
+  class="relative h-[90vh] min-h-140 flex items-center overflow-hidden bg-brand-navy"
+>
   <Image
     src={heroImage}
     alt="Università della Svizzera italiana campus"
@@ -16,28 +30,59 @@ const tickerItems = [
     class="absolute inset-0 w-full h-full object-cover opacity-55"
     loading="eager"
   />
-  <div class="absolute inset-0 bg-linear-to-b from-brand-navy/75 to-brand-navy/92"></div>
+  <div
+    class="absolute inset-0 bg-linear-to-b from-brand-navy/75 to-brand-navy/92"
+  >
+  </div>
 
-  <div class="relative z-10 max-w-3xl mx-auto px-8 text-center text-brand-ivory">
-    <p class="font-mono text-sm tracking-[0.12em] uppercase text-brand-brass mb-3">
+  <div
+    class="relative z-10 max-w-3xl mx-auto px-8 text-center text-brand-ivory"
+  >
+    <p
+      class="font-mono text-sm tracking-[0.12em] uppercase text-brand-brass mb-3"
+    >
       Università della Svizzera italiana
     </p>
-    <h1 class="font-display text-5xl md:text-7xl font-semibold mb-4">Finance Association</h1>
+    <h1 class="font-display text-5xl md:text-7xl font-semibold mb-4">
+      Finance Association
+    </h1>
     <p class="font-body text-lg text-brand-ivory/85">
       Where USI's finance students build their edge.
     </p>
   </div>
 
-   <div
+  <div
     class="absolute bottom-0 inset-x-0 z-10 bg-brand-navy/85 border-t border-brand-brass/40 py-2.5 overflow-hidden"
     aria-hidden="true"
   >
-    <div
-      style="animation: ticker-scroll 30s linear infinite; will-change: transform;"
-      class="flex gap-12 whitespace-nowrap font-mono text-xs tracking-wide text-brand-brass"
-    >
-      {[...tickerItems, ...tickerItems].map(item => <span>{item}</span>)}
+    <!-- Two identical sets; JS measures set-1 width then animates by exactly that many px -->
+    <div id="ticker-track" class="flex whitespace-nowrap font-mono text-xs tracking-wide text-brand-brass">
+      <div id="ticker-set" class="flex">
+        {tickerItems.map(item => <span class="pr-12">{item}</span>)}
+      </div>
+      <div class="flex" aria-hidden="true">
+        {tickerItems.map(item => <span class="pr-12">{item}</span>)}
+      </div>
     </div>
   </div>
 </section>
 
+<script>
+  function startTicker() {
+    const track = document.getElementById('ticker-track');
+    const set   = document.getElementById('ticker-set');
+    if (!track || !set) return;
+
+    // Exact pixel width of one set — avoids sub-pixel % rounding
+    const w = set.getBoundingClientRect().width;
+    track.style.setProperty('--ticker-w', `-${w}px`);
+    track.style.animation = 'ticker-scroll 30s linear infinite';
+  }
+
+  // Wait for custom fonts before measuring (font affects glyph widths)
+  if (document.fonts.status === 'loaded') {
+    startTicker();
+  } else {
+    document.fonts.ready.then(startTicker);
+  }
+</script>
