@@ -1,15 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-navy: #132743;
-  --color-brand-ivory: #f7f3ec;
-  --color-brand-brass: #b08d57;
-  --color-brand-charcoal: #22201c;
-  --color-brand-slate: #4c6663;
+  /* Palette mapped to the Starting Finance Club mockup.
+     The five brand-* tokens keep their names so every existing component
+     recolors automatically; the extra accents mirror the mockup. */
+  --color-brand-navy: #111111;   /* black — dark sections & primary text */
+  --color-brand-ivory: #ffffff;  /* white — surfaces & text on dark */
+  --color-brand-brass: #e8396b;  /* pink — primary accent */
+  --color-brand-charcoal: #111111; /* body text */
+  --color-brand-slate: #888888;  /* muted / meta text */
 
-  --font-display: "Fraunces", serif;
-  --font-body: "IBM Plex Sans", sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  --color-brand-green: #2dba6e;
+  --color-brand-blue: #1a5cff;
+  --color-brand-bg: #f5f5f0;     /* warm off-white panel */
+
+  --font-display: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "Inter", sans-serif;
 }
 
 *,
@@ -21,8 +28,22 @@
 body {
   margin: 0;
   font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.5;
   background-color: var(--color-brand-ivory);
   color: var(--color-brand-charcoal);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Mockup typography: heavy, tightly-tracked display headings ──── */
+.font-display {
+  font-weight: 900;
+  letter-spacing: -0.035em;
+}
+
+/* Hard black dividers between full-width sections, as in the mockup. */
+section {
+  border-bottom: 2px solid var(--color-brand-navy);
 }
 
 /* ── Ticker tape ────────────────────────────────────────────────── */
