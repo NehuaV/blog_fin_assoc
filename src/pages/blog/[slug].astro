@@ -36,6 +36,7 @@ const { Content } = await render(entry);
       alt={entry.data.coverAlt || entry.data.title}
       width={800}
       class="zoomable-img w-full rounded mb-10 aspect-video object-cover"
+      loading="eager"
     />
 
     <div id="blog-content" class="

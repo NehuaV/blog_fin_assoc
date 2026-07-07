@@ -30,8 +30,10 @@ const { title, description = "Finance Association of Università della Svizzera 
     <SiteHeader />
     <slot />
 
-    <!-- Image zoom overlay (one instance, shared across all pages) -->
-    <div class="zoom-overlay" id="zoom-overlay">
+    <!-- Image zoom overlay.
+         style="display:none" is set directly in HTML so the element is hidden
+         before any JS or CSS runs — eliminates the one-frame flash on bfcache restore. -->
+    <div class="zoom-overlay" id="zoom-overlay" style="display:none">
       <img alt="Zoomed image" id="zoom-img" src="" />
     </div>
 
@@ -42,8 +44,7 @@ const { title, description = "Finance Association of Università della Svizzera 
       function openZoom(img: HTMLImageElement) {
         overlayImg.src = img.currentSrc || img.src;
         overlayImg.alt = img.alt;
-        // Clear the inline display:none set by closeZoom, then activate
-        overlay.style.display = '';
+        overlay.style.display = '';   // lift the inline override so CSS takes over
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
       }
@@ -51,13 +52,8 @@ const { title, description = "Finance Association of Università della Svizzera 
       function closeZoom() {
         overlay.classList.remove('active');
         document.body.style.overflow = '';
-        // Persist display:none as inline style — bfcache preserves inline styles,
-        // so the overlay will always be hidden when the page is restored from cache.
-        overlay.style.display = 'none';
+        overlay.style.display = 'none'; // inline style is preserved by bfcache
       }
-
-      // Initialise hidden via inline style (same reason as above)
-      overlay.style.display = 'none';
 
       document.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
@@ -70,6 +66,16 @@ const { title, description = "Finance Association of Università della Svizzera 
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeZoom();
+      });
+
+      // pagehide fires before the bfcache snapshot is taken.
+      // Closing here ensures the snapshot always captures display:none.
+      window.addEventListener('pagehide', closeZoom);
+
+      // pageshow backstop: if the page is restored from bfcache and the overlay
+      // somehow wasn't cleaned up, hide it instantly before the user sees anything.
+      window.addEventListener('pageshow', (e) => {
+        if (e.persisted) closeZoom();
       });
     </script>
   </body>
