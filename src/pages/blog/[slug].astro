@@ -1,0 +1,95 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("blog");
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<Layout
+  title={`${entry.data.title} — Finance Association USI`}
+  description={entry.data.description}
+  ogImage={entry.data.coverImage.src}
+>
+  <main class="max-w-3xl mx-auto px-8 py-16">
+    <p class="font-mono text-xs text-brand-slate mb-1">
+      by {entry.data.author} ·
+      <time datetime={entry.data.pubDate.toISOString()}>
+        {entry.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+      </time>
+    </p>
+
+    <h1 class="font-display text-4xl md:text-5xl text-brand-navy mt-2 mb-6">
+      {entry.data.title}
+    </h1>
+
+    <Image
+      src={entry.data.coverImage}
+      alt={entry.data.coverAlt || entry.data.title}
+      width={800}
+      class="zoomable-img w-full rounded mb-10 aspect-video object-cover"
+    />
+
+    <div id="blog-content" class="
+      font-body text-brand-charcoal leading-relaxed
+      [&_p]:mb-5
+      [&_h2]:font-display [&_h2]:text-brand-navy [&_h2]:text-2xl [&_h2]:mt-10 [&_h2]:mb-3
+      [&_h3]:font-display [&_h3]:text-brand-navy [&_h3]:text-xl [&_h3]:mt-8 [&_h3]:mb-2
+      [&_a]:text-brand-brass [&_a]:underline [&_a:hover]:text-brand-navy
+      [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-5
+      [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-5
+      [&_li]:mb-1
+      [&_strong]:font-semibold
+      [&_code]:font-mono [&_code]:text-sm [&_code]:bg-brand-navy/8 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded
+      [&_pre]:bg-brand-navy [&_pre]:text-brand-ivory [&_pre]:rounded [&_pre]:p-4 [&_pre]:overflow-x-auto [&_pre]:mb-5
+      [&_pre_code]:bg-transparent [&_pre_code]:p-0
+      [&_blockquote]:border-l-4 [&_blockquote]:border-brand-brass [&_blockquote]:pl-4 [&_blockquote]:text-brand-slate [&_blockquote]:mb-5
+      [&_table]:w-full [&_table]:mb-5
+      [&_th]:text-left [&_th]:font-mono [&_th]:text-xs [&_th]:uppercase [&_th]:text-brand-brass [&_th]:pb-2 [&_th]:border-b [&_th]:border-brand-navy/20
+      [&_td]:py-2 [&_td]:border-b [&_td]:border-brand-navy/10
+      [&_hr]:border-brand-navy/15 [&_hr]:my-8
+      [&_figure]:my-8
+      [&_figcaption]:font-mono [&_figcaption]:text-xs [&_figcaption]:text-brand-slate [&_figcaption]:mt-2 [&_figcaption]:text-center
+    ">
+      <Content />
+    </div>
+
+    {entry.data.gallery.length > 0 && (
+      <section class="mt-16" aria-label="Photo gallery">
+        <p class="font-mono text-xs tracking-widest uppercase text-brand-brass mb-1">Gallery</p>
+        <h2 class="font-display text-2xl text-brand-navy mb-6">Photos</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {entry.data.gallery.map(item => (
+            <figure class="m-0">
+              <Image
+                src={item.src}
+                alt={item.alt}
+                width={400}
+                class="zoomable-img w-full rounded aspect-video object-cover"
+              />
+              {item.caption && (
+                <figcaption class="font-mono text-xs text-brand-slate mt-2">{item.caption}</figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+      </section>
+    )}
+  </main>
+
+  <script>
+    // Content-collection markdown images don't go through the rehype pipeline,
+    // so we stamp the zoom class on them at runtime instead.
+    document.querySelectorAll('#blog-content img').forEach((img) => {
+      img.classList.add('zoomable-img');
+    });
+  </script>
+</Layout>

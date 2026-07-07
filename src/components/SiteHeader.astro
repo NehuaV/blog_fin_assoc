@@ -1,0 +1,37 @@
+---
+const { pathname } = Astro.url;
+
+const isHome = pathname === "/";
+const isBlog = pathname.startsWith("/blog");
+---
+<header class="bg-brand-navy sticky top-0 z-40 border-b border-brand-brass/20">
+  <nav class="max-w-5xl mx-auto px-8 py-4 flex items-center justify-between">
+    <a href="/" class="font-display text-brand-ivory text-lg leading-none hover:text-brand-brass transition-colors">
+      Finance Association <span class="text-brand-brass">USI</span>
+    </a>
+    <ul class="flex gap-8 list-none m-0 p-0">
+      <li>
+        <a
+          href="/"
+          class:list={[
+            'font-mono text-xs tracking-widest uppercase transition-colors',
+            isHome ? 'text-brand-brass' : 'text-brand-ivory/60 hover:text-brand-ivory',
+          ]}
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          href="/blog"
+          class:list={[
+            'font-mono text-xs tracking-widest uppercase transition-colors',
+            isBlog ? 'text-brand-brass' : 'text-brand-ivory/60 hover:text-brand-ivory',
+          ]}
+        >
+          Blog
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>

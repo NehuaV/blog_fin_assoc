@@ -1,0 +1,76 @@
+---
+import "../styles/global.css";
+import SiteHeader from "../components/SiteHeader.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const { title, description = "Finance Association of Università della Svizzera italiana", ogImage } = Astro.props;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <SiteHeader />
+    <slot />
+
+    <!-- Image zoom overlay (one instance, shared across all pages) -->
+    <div class="zoom-overlay" id="zoom-overlay">
+      <img alt="Zoomed image" id="zoom-img" src="" />
+    </div>
+
+    <script>
+      const overlay = document.getElementById('zoom-overlay')!;
+      const overlayImg = document.getElementById('zoom-img') as HTMLImageElement;
+
+      function openZoom(img: HTMLImageElement) {
+        overlayImg.src = img.currentSrc || img.src;
+        overlayImg.alt = img.alt;
+        // Clear the inline display:none set by closeZoom, then activate
+        overlay.style.display = '';
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeZoom() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        // Persist display:none as inline style — bfcache preserves inline styles,
+        // so the overlay will always be hidden when the page is restored from cache.
+        overlay.style.display = 'none';
+      }
+
+      // Initialise hidden via inline style (same reason as above)
+      overlay.style.display = 'none';
+
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.matches('.zoomable-img')) {
+          openZoom(target as HTMLImageElement);
+        } else if (overlay.classList.contains('active')) {
+          closeZoom();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeZoom();
+      });
+    </script>
+  </body>
+</html>

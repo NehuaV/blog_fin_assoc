@@ -1,16 +1,33 @@
 ---
-title: 'Third post'
-description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 22 2022'
-heroImage: '../../assets/blog-placeholder-2.jpg'
+title: "Understanding the Swiss Capital Markets"
+pubDate: 2026-05-15
+description: "A primer on the SIX Swiss Exchange, SMI composition, and the unique characteristics of Switzerland's financial ecosystem."
+coverImage: "../../assets/blog/third-post/hero.jpg"
+coverAlt: "Swiss Exchange trading floor"
+author: "Carol Meier"
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+Switzerland punches far above its weight in global finance. Despite a population of 8.7 million, it hosts some of the world's largest asset managers, two of Europe's top investment banks, and the SIX Swiss Exchange — one of the most liquid equity markets in Europe.
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+## The SMI
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+The Swiss Market Index (SMI) tracks the 20 largest and most liquid large- and mid-cap stocks listed on SIX. Its blue chips — Nestlé, Novartis, Roche — are global giants that derive over 90% of revenue outside Switzerland, making the SMI surprisingly international.
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+![SMI index composition by market cap weight](../../assets/blog/third-post/detail-1.jpg "SMI composition: the top 3 names account for more than half the index weight")
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+The chart above illustrates the heavy concentration at the top of the SMI. Healthcare (Novartis, Roche) and Consumer Staples (Nestlé) alone represent over 50% of the index. Any manager benchmarked to the SMI carries enormous single-sector exposure by default.
+
+## Currency Risk
+
+CHF is a safe-haven currency. During risk-off periods it appreciates sharply, compressing the export earnings of SMI constituents when converted back to francs. Analysts covering Swiss multinationals routinely model EURCHF sensitivity.
+
+## Key Metrics to Watch
+
+| Indicator | What it signals |
+|-----------|-----------------|
+| SMI Level | Domestic equity sentiment |
+| EURCHF    | Export competitiveness |
+| SNB policy rate | Cost of capital baseline |
+| Swiss 10Y yield | Risk-free rate for DCF |
+
+Understanding these interconnections is foundational for anyone analysing Swiss equities or building CHF-denominated portfolios.

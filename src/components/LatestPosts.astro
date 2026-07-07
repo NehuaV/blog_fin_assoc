@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const allPosts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+---
+<section class="px-8 py-20 bg-brand-ivory">
+  <div class="max-w-5xl mx-auto mb-10">
+    <p class="font-mono text-xs tracking-widest uppercase text-brand-brass">From the association</p>
+    <h2 class="font-display text-3xl text-brand-navy mt-1">Latest Posts</h2>
+  </div>
+
+  <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    {allPosts.map(post => (
+      <article>
+        <a href={`/blog/${post.id}`} class="block group">
+          <Image
+            src={post.data.coverImage}
+            alt={post.data.coverAlt || post.data.title}
+            width={400}
+            class="zoomable-img w-full aspect-video object-cover rounded"
+          />
+          <div class="mt-3">
+            <time
+              datetime={post.data.pubDate.toISOString()}
+              class="font-mono text-xs text-brand-slate"
+            >
+              {post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+            </time>
+            <h3 class="font-display text-xl text-brand-navy mt-1 mb-1 group-hover:text-brand-brass transition-colors">
+              {post.data.title}
+            </h3>
+            <p class="font-body text-sm text-brand-charcoal">{post.data.description}</p>
+          </div>
+        </a>
+      </article>
+    ))}
+  </div>
+</section>

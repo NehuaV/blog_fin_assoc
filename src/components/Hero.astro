@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import heroImage from "../assets/hero-usi.jpg";
+
+const tickerItems = ["SMI +0.4%", "EURCHF 0.9412", "EBITDA", "ALPHA", "DCF", "CHF/USD", "BASIS PTS"];
+---
+<section class="relative h-[90vh] min-h-140 flex items-center overflow-hidden bg-brand-navy">
+  <Image
+    src={heroImage}
+    alt="Università della Svizzera italiana campus"
+    width={1920}
+    class="absolute inset-0 w-full h-full object-cover opacity-55"
+  />
+  <div class="absolute inset-0 bg-linear-to-b from-brand-navy/75 to-brand-navy/92"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-8 text-center text-brand-ivory">
+    <p class="font-mono text-sm tracking-[0.12em] uppercase text-brand-brass mb-3">
+      Università della Svizzera italiana
+    </p>
+    <h1 class="font-display text-5xl md:text-7xl font-semibold mb-4">Finance Association</h1>
+    <p class="font-body text-lg text-brand-ivory/85">
+      Where USI's finance students research, debate, and build their edge.
+    </p>
+  </div>
+
+  <!-- <div
+    class="absolute bottom-0 inset-x-0 z-10 bg-brand-navy/85 border-t border-brand-brass/40 py-2.5 overflow-hidden"
+    aria-hidden="true"
+  >
+    <div class="flex gap-12 whitespace-nowrap animate-[scroll_30s_linear_infinite] font-mono text-xs tracking-wide text-brand-brass motion-reduce:animate-none">
+      {[...tickerItems, ...tickerItems].map(item => <span>{item}</span>)}
+    </div>
+  </div> -->
+</section>
+
+<style>
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+</style>
+
