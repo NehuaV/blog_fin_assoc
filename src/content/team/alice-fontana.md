@@ -1,8 +1,8 @@
 ---
-name: "Alice Fontana"
+name: "Alessia Battistella"
 role: "President"
-description: "MSc Finance candidate focused on derivatives and structured products. Previously interned at UBS Investment Bank."
-photo: "../../assets/team/alice.jpg"
-linkedin: "https://www.linkedin.com/in/alice-fontana"
+description: "MSc student in Financial Technology at USI. President of Starting Finance Club USI."
+photo: "../../assets/team/allessia_b.png"
+linkedin: "https://www.linkedin.com/in/alessia-battistella-627584238/"
 order: 1
 ---

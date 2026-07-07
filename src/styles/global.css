@@ -25,6 +25,13 @@ body {
   color: var(--color-brand-charcoal);
 }
 
+/* ── Ticker tape ────────────────────────────────────────────────── */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+
 /* ── Image zoom ─────────────────────────────────────────────────── */
 .zoomable-img {
   cursor: zoom-in;
