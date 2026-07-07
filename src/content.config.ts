@@ -33,7 +33,7 @@ const team = defineCollection({
       role: z.string(),
       description: z.string(),
       photo: image(),
-      linkedin: z.string().url(),
+      linkedin: z.url(),
       order: z.number().default(99),
     }),
 });
