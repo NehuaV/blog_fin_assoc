@@ -5,9 +5,9 @@ import type { APIContext } from "astro";
 export async function GET(context: APIContext) {
   const posts = await getCollection("blog");
   return rss({
-    title: "Finance Association USI",
+    title: "Starting Finance Club USI",
     description:
-      "Research, analysis, and insights from USI's Finance Association.",
+      "Research, analysis, and insights from USI's Starting Finance Club.",
     site: context.site ?? new URL("http://localhost:4321"),
     items: posts
       .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
