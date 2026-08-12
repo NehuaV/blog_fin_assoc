@@ -22,21 +22,21 @@ const blogHref = getRelativeLocaleUrl(lang, "blog");
 
 <header class="sticky top-0 z-40 bg-paper border-b-2 border-ink">
   <nav
-    class="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between"
+    class="max-w-6xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4"
   >
     <a
       href={homeHref}
-      class="font-black text-sm tracking-tight text-ink hover:text-pink transition-colors"
+      class="font-black text-sm tracking-tight text-ink hover:text-pink transition-colors whitespace-nowrap shrink-0"
     >
-      Starting Finance Club · <span class="text-pink">USI</span>
+      <span class="hidden sm:inline">Starting Finance Club · </span><span class="text-pink">USI</span>
     </a>
-    <div class="flex items-center gap-8">
-      <ul class="flex gap-10 list-none m-0 p-0">
+    <div class="flex items-center gap-3 sm:gap-8 shrink-0">
+      <ul class="flex gap-4 sm:gap-10 list-none m-0 p-0">
         <li>
           <a
             href={homeHref}
             class:list={[
-              "text-sm font-semibold transition-colors",
+              "text-sm font-semibold transition-colors whitespace-nowrap",
               isHome ? "text-pink" : "text-ink hover:text-pink",
             ]}
           >
@@ -47,7 +47,7 @@ const blogHref = getRelativeLocaleUrl(lang, "blog");
           <a
             href={blogHref}
             class:list={[
-              "text-sm font-semibold transition-colors",
+              "text-sm font-semibold transition-colors whitespace-nowrap",
               isBlog ? "text-pink" : "text-ink hover:text-pink",
             ]}
           >
