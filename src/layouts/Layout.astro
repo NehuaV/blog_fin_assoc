@@ -18,11 +18,15 @@ const t = useTranslations(lang);
 const { title, description = t("site.description"), ogImage } = Astro.props;
 
 const { pathname } = Astro.url;
-const stripped = lang === defaultLang ? pathname : pathname.replace(new RegExp(`^/${lang}`), "") || "/";
+const stripped =
+  lang === defaultLang
+    ? pathname
+    : pathname.replace(new RegExp(`^/${lang}`), "") || "/";
 const canonicalPath = stripped === "/" ? "" : stripped;
 const localeUrls = getRelativeLocaleUrlList(canonicalPath);
 const localeCodes = Object.keys(languages) as Array<keyof typeof languages>;
 ---
+
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
@@ -32,9 +36,11 @@ const localeCodes = Object.keys(languages) as Array<keyof typeof languages>;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {ogImage && <meta property="og:image" content={ogImage} />}
-    {localeCodes.map((code, i) => (
-      <link rel="alternate" hreflang={code} href={localeUrls[i]} />
-    ))}
+    {
+      localeCodes.map((code, i) => (
+        <link rel="alternate" hreflang={code} href={localeUrls[i]} />
+      ))
+    }
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -55,43 +61,45 @@ const localeCodes = Object.keys(languages) as Array<keyof typeof languages>;
     </div>
 
     <script>
-      const overlay = document.getElementById('zoom-overlay')!;
-      const overlayImg = document.getElementById('zoom-img') as HTMLImageElement;
+      const overlay = document.getElementById("zoom-overlay")!;
+      const overlayImg = document.getElementById(
+        "zoom-img",
+      ) as HTMLImageElement;
 
       function openZoom(img: HTMLImageElement) {
         overlayImg.src = img.currentSrc || img.src;
         overlayImg.alt = img.alt;
-        overlay.style.display = '';   // lift the inline override so CSS takes over
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        overlay.style.display = ""; // lift the inline override so CSS takes over
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden";
       }
 
       function closeZoom() {
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-        overlay.style.display = 'none'; // inline style is preserved by bfcache
+        overlay.classList.remove("active");
+        document.body.style.overflow = "";
+        overlay.style.display = "none"; // inline style is preserved by bfcache
       }
 
-      document.addEventListener('click', (e) => {
+      document.addEventListener("click", (e) => {
         const target = e.target as HTMLElement;
-        if (target.matches('.zoomable-img')) {
+        if (target.matches(".zoomable-img")) {
           openZoom(target as HTMLImageElement);
-        } else if (overlay.classList.contains('active')) {
+        } else if (overlay.classList.contains("active")) {
           closeZoom();
         }
       });
 
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeZoom();
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeZoom();
       });
 
       // pagehide fires before the bfcache snapshot is taken.
       // Closing here ensures the snapshot always captures display:none.
-      window.addEventListener('pagehide', closeZoom);
+      window.addEventListener("pagehide", closeZoom);
 
       // pageshow backstop: if the page is restored from bfcache and the overlay
       // somehow wasn't cleaned up, hide it instantly before the user sees anything.
-      window.addEventListener('pageshow', (e) => {
+      window.addEventListener("pageshow", (e) => {
         if (e.persisted) closeZoom();
       });
     </script>
