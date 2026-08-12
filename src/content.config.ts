@@ -39,4 +39,16 @@ const team = defineCollection({
     }),
 });
 
-export const collections = { blog, team };
+const events = defineCollection({
+  loader: glob({ base: "./src/assets/events", pattern: "**/*.md" }),
+  schema: z.object({
+    name: z.string(),
+    date: z.coerce.date(),
+    time: z.string(),
+    location: z.string(),
+    tag: z.string().default("Event"),
+    link: z.url().optional(),
+  }),
+});
+
+export const collections = { blog, team, events };
