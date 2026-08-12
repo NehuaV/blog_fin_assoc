@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-navy: #132743;
-  --color-brand-ivory: #f7f3ec;
-  --color-brand-brass: #b08d57;
-  --color-brand-charcoal: #22201c;
-  --color-brand-slate: #4c6663;
+  --color-ink: #111111;
+  --color-paper: #ffffff;
+  --color-cream: #f5f5f0;
+  --color-pink: #e8396b;
+  --color-green: #2dba6e;
+  --color-blue: #1a5cff;
+  --color-muted: #888888;
+  --color-line: #e5e5e5;
 
-  --font-display: "Fraunces", serif;
-  --font-body: "IBM Plex Sans", sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  --font-sans: "Inter", sans-serif;
 }
 
 *,
@@ -20,17 +21,10 @@
 
 body {
   margin: 0;
-  font-family: var(--font-body);
-  background-color: var(--color-brand-ivory);
-  color: var(--color-brand-charcoal);
+  font-family: var(--font-sans);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
 }
-
-/* ── Ticker tape ────────────────────────────────────────────────── */
-@keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(var(--ticker-w, -50%)); }
-}
-
 
 /* ── Image zoom ─────────────────────────────────────────────────── */
 .zoomable-img {

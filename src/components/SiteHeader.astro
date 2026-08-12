@@ -4,18 +4,18 @@ const { pathname } = Astro.url;
 const isHome = pathname === "/";
 const isBlog = pathname.startsWith("/blog");
 ---
-<header class="bg-brand-navy sticky top-0 z-40 border-b border-brand-brass/20">
-  <nav class="max-w-5xl mx-auto px-8 py-4 flex items-center justify-between">
-    <a href="/" class="font-display text-brand-ivory text-lg leading-none hover:text-brand-brass transition-colors">
-      Finance Association <span class="text-brand-brass">USI</span>
+<header class="sticky top-0 z-40 bg-paper border-b-2 border-ink">
+  <nav class="max-w-6xl mx-auto px-8 md:px-[5%] h-16 flex items-center justify-between">
+    <a href="/" class="font-black text-sm tracking-tight text-ink hover:text-pink transition-colors">
+      Finance Association · <span class="text-pink">USI</span>
     </a>
-    <ul class="flex gap-8 list-none m-0 p-0">
+    <ul class="flex gap-10 list-none m-0 p-0">
       <li>
         <a
           href="/"
           class:list={[
-            'font-mono text-xs tracking-widest uppercase transition-colors',
-            isHome ? 'text-brand-brass' : 'text-brand-ivory/60 hover:text-brand-ivory',
+            'text-sm font-semibold transition-colors',
+            isHome ? 'text-pink' : 'text-ink hover:text-pink',
           ]}
         >
           Home
@@ -25,8 +25,8 @@ const isBlog = pathname.startsWith("/blog");
         <a
           href="/blog"
           class:list={[
-            'font-mono text-xs tracking-widest uppercase transition-colors',
-            isBlog ? 'text-brand-brass' : 'text-brand-ivory/60 hover:text-brand-ivory',
+            'text-sm font-semibold transition-colors',
+            isBlog ? 'text-pink' : 'text-ink hover:text-pink',
           ]}
         >
           Blog

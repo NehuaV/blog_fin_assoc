@@ -3,39 +3,33 @@ import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
 const members = (await getCollection("team")).sort((a, b) => a.data.order - b.data.order);
+const roleColors = ["text-pink", "text-blue", "text-green"];
 ---
-<section class="px-8 pt-20 pb-24 bg-brand-navy">
-  <div class="max-w-4xl mx-auto mb-10">
-    <p class="font-mono text-xs tracking-widest uppercase text-brand-brass">Leadership</p>
-    <h2 class="font-display text-3xl text-brand-ivory mt-1">Board Members</h2>
+<section id="team" class="bg-paper border-b-2 border-ink">
+  <div class="px-8 md:px-[5%] pt-14 pb-3 flex items-baseline gap-6 flex-wrap">
+    <span class="text-[0.68rem] font-bold tracking-[0.12em] uppercase text-muted whitespace-nowrap">
+      The Team
+    </span>
+    <h2 class="font-black text-3xl md:text-5xl tracking-tight leading-[1.05]">
+      Behind the <span class="text-pink">club.</span>
+    </h2>
   </div>
 
-  <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-10">
-    {members.map(member => (
-      <article class="text-center text-brand-ivory">
+  <div class="border-t-2 border-ink grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-10 px-8 md:px-[5%] py-10">
+    {members.map((member, i) => (
+      <article>
         <Image
           src={member.data.photo}
           alt={member.data.name}
-          width={280}
-          height={280}
-          class="zoomable-img rounded-full object-cover mx-auto mb-4 w-35 h-35"
+          width={112}
+          height={112}
+          class="zoomable-img rounded-full object-cover border-2 border-ink w-14 h-14 mb-3.5"
         />
-        <h3 class="font-display text-lg">{member.data.name}</h3>
-        <p class="font-mono text-xs uppercase tracking-[0.06em] text-brand-brass mt-1 mb-2">
+        <h3 class="font-black text-sm tracking-tight mb-0.5">{member.data.name}</h3>
+        <p class:list={["text-xs font-bold mb-0.5", roleColors[i % roleColors.length]]}>
           {member.data.role}
         </p>
-        <p class="font-body text-sm text-brand-ivory/80">{member.data.description}</p>
-        <a
-          href={member.data.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${member.data.name} on LinkedIn`}
-          class="inline-flex mt-3 text-brand-brass focus-visible:outline-2 focus-visible:outline-brand-brass focus-visible:outline-offset-2"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/>
-          </svg>
-        </a>
+        <p class="text-xs text-muted leading-relaxed">{member.data.description}</p>
       </article>
     ))}
   </div>

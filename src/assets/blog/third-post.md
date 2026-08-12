@@ -2,7 +2,7 @@
 title: "Understanding the Swiss Capital Markets"
 pubDate: 2026-05-15
 description: "A primer on the SIX Swiss Exchange, SMI composition, and the unique characteristics of Switzerland's financial ecosystem."
-coverImage: "../../assets/blog/third-post/hero.jpg"
+coverImage: "./third-post/hero.jpg"
 coverAlt: "Swiss Exchange trading floor"
 author: "Carol Meier"
 ---
@@ -13,7 +13,7 @@ Switzerland punches far above its weight in global finance. Despite a population
 
 The Swiss Market Index (SMI) tracks the 20 largest and most liquid large- and mid-cap stocks listed on SIX. Its blue chips — Nestlé, Novartis, Roche — are global giants that derive over 90% of revenue outside Switzerland, making the SMI surprisingly international.
 
-![SMI index composition by market cap weight](../../assets/blog/third-post/detail-1.jpg "SMI composition: the top 3 names account for more than half the index weight")
+![SMI index composition by market cap weight](./third-post/detail-1.jpg "SMI composition: the top 3 names account for more than half the index weight")
 
 The chart above illustrates the heavy concentration at the top of the SMI. Healthcare (Novartis, Roche) and Consumer Staples (Nestlé) alone represent over 50% of the index. Any manager benchmarked to the SMI carries enormous single-sector exposure by default.
 
