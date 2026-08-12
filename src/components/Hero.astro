@@ -1,31 +1,43 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { defaultLang } from "../i18n/ui";
+import { isLang, useTranslations } from "../i18n/utils";
+
+const lang = isLang(Astro.currentLocale) ? Astro.currentLocale : defaultLang;
+const t = useTranslations(lang);
+
+const blogHref = getRelativeLocaleUrl(lang, "blog");
 ---
 
 <section class="bg-paper border-b-2 border-ink pt-20 pb-16">
   <div class="max-w-6xl mx-auto px-6 sm:px-8">
     <p class="text-xs font-bold tracking-[0.12em] uppercase text-muted mb-6">
-      Student Club · Università della Svizzera italiana · Lugano
+      {t("hero.eyebrow")}
     </p>
-    <h1 class="font-black text-5xl md:text-7xl leading-none tracking-tight max-w-3xl mb-8">
-      Finance,<br />
-      beyond the <span class="text-pink">textbook.</span><br />
-      Built by <span class="text-green">students.</span>
+    <h1
+      class="font-black text-5xl md:text-7xl leading-none tracking-tight max-w-3xl mb-8"
+    >
+      {t("hero.line1")}<br />
+      {t("hero.line2Pre")}{" "}
+      <span class="text-pink">{t("hero.line2Accent")}</span><br />
+      {t("hero.line3Pre")}{" "}
+      <span class="text-green">{t("hero.line3Accent")}</span>
     </h1>
     <p class="text-base md:text-lg text-ink/70 max-w-lg leading-relaxed mb-10">
-      Starting Finance Club USI is the community of USI students who want to really understand markets, the economy, and finance — not just from books.
+      {t("hero.subtitle")}
     </p>
     <div class="flex gap-4 flex-wrap">
       <a
-        href="/blog"
+        href={blogHref}
         class="inline-flex items-center gap-2 bg-ink text-paper border-2 border-ink rounded-full px-7 py-3.5 font-bold text-sm hover:bg-pink hover:border-pink transition-colors"
       >
-        Read the blog →
+        {t("hero.ctaBlog")}
       </a>
       <a
         href="#team"
         class="inline-flex items-center gap-2 border-2 border-ink text-ink rounded-full px-7 py-3.5 font-bold text-sm hover:bg-ink hover:text-paper transition-colors"
       >
-        Meet the team
+        {t("hero.ctaTeam")}
       </a>
     </div>
   </div>

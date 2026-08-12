@@ -2,7 +2,7 @@
 title: "Valuation Fundamentals: DCF in Practice"
 pubDate: 2026-06-20
 description: "A practical walkthrough of discounted cash flow modelling, from free cash flow projection to terminal value calculation."
-coverImage: "./second-post/hero.jpg"
+coverImage: "../second-post/hero.jpg"
 coverAlt: "Spreadsheet showing DCF model"
 author: "Bob Ferretti"
 ---
@@ -41,6 +41,6 @@ Use a long-run growth rate close to nominal GDP — typically 2–3% for Swiss c
 - **Optimistic terminal growth** — g > 3% implies your firm outgrows the economy forever
 - **Ignoring the discount on terminal value** — TV can represent 70–80% of value; small changes dominate
 
-![WACC sensitivity table](./second-post/detail-1.jpg "Sensitivity analysis: equity value vs. WACC and terminal growth rate")
+![WACC sensitivity table](../second-post/detail-1.jpg "Sensitivity analysis: equity value vs. WACC and terminal growth rate")
 
 The sensitivity table above shows how a 50 bps change in WACC — entirely plausible given uncertainty in beta estimation and the equity risk premium — moves the implied equity value by roughly 12–18%. Model your discount rate as a range, not a point.

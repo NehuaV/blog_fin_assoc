@@ -1,0 +1,47 @@
+---
+import { getRelativeLocaleUrlList } from "astro:i18n";
+import America from "../assets/america.astro";
+import Italy from "../assets/italy.astro";
+import { defaultLang } from "../i18n/ui";
+import { isLang } from "../i18n/utils";
+
+const lang = isLang(Astro.currentLocale) ? Astro.currentLocale : defaultLang;
+const { pathname } = Astro.url;
+const stripped =
+  lang === defaultLang
+    ? pathname
+    : pathname.replace(new RegExp(`^/${lang}`), "") || "/";
+const path = stripped === "/" ? "" : stripped;
+
+// Order matches the `locales` array in astro.config.mjs: ["en", "it"]
+const [enUrl, itUrl] = getRelativeLocaleUrlList(path);
+---
+
+<div class="flex items-center gap-1.5">
+  <a
+    href={enUrl}
+    aria-label="English"
+    aria-current={lang === "en" ? "true" : undefined}
+    class:list={[
+      "flex items-center justify-center w-7 h-7 rounded-full overflow-hidden transition-opacity",
+      lang === "en"
+        ? "ring-2 ring-ink opacity-100"
+        : "opacity-40 hover:opacity-100",
+    ]}
+  >
+    <America />
+  </a>
+  <a
+    href={itUrl}
+    aria-label="Italiano"
+    aria-current={lang === "it" ? "true" : undefined}
+    class:list={[
+      "flex items-center justify-center w-7 h-7 rounded-full overflow-hidden transition-opacity",
+      lang === "it"
+        ? "ring-2 ring-ink opacity-100"
+        : "opacity-40 hover:opacity-100",
+    ]}
+  >
+    <Italy />
+  </a>
+</div>

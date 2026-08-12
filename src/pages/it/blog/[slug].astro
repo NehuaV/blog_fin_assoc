@@ -1,14 +1,14 @@
 ---
 import { getCollection } from "astro:content";
-import BlogPostView from "../../components/views/BlogPostView.astro";
-import Layout from "../../layouts/Layout.astro";
+import BlogPostView from "../../../components/views/BlogPostView.astro";
+import Layout from "../../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
   return blogEntries
-    .filter((entry) => entry.id.startsWith("en/"))
+    .filter((entry) => entry.id.startsWith("it/"))
     .map((entry) => ({
-      params: { slug: entry.id.slice("en/".length) },
+      params: { slug: entry.id.slice("it/".length) },
       props: { entry },
     }));
 }
@@ -21,5 +21,5 @@ const { entry } = Astro.props;
   description={entry.data.description}
   ogImage={entry.data.coverImage.src}
 >
-  <BlogPostView entry={entry} lang="en" />
+  <BlogPostView entry={entry} lang="it" />
 </Layout>

@@ -11,7 +11,22 @@ const site = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 export default defineConfig({
 	site,
-	integrations: [mdx(), sitemap()],
+	i18n: {
+		defaultLocale: 'en',
+		locales: ['en', 'it'],
+		routing: {
+			prefixDefaultLocale: false,
+		},
+	},
+	integrations: [
+		mdx(),
+		sitemap({
+			i18n: {
+				defaultLocale: 'en',
+				locales: { en: 'en', it: 'it' },
+			},
+		}),
+	],
 	adapter: vercel(),
 	vite: {
 		plugins: [tailwindcss()],

@@ -7,16 +7,16 @@ export async function GET(context: APIContext) {
   return rss({
     title: "Starting Finance Club USI",
     description:
-      "Research, analysis, and insights from USI's Starting Finance Club.",
+      "Ricerca, analisi e approfondimenti dallo Starting Finance Club dell'USI.",
     site: context.site ?? new URL("http://localhost:4321"),
     items: posts
-      .filter((post) => post.id.startsWith("en/"))
+      .filter((post) => post.id.startsWith("it/"))
       .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
       .map((post) => ({
         title: post.data.title,
         pubDate: post.data.pubDate,
         description: post.data.description,
-        link: `/blog/${post.id.slice("en/".length)}/`,
+        link: `/it/blog/${post.id.slice("it/".length)}/`,
       })),
   });
 }

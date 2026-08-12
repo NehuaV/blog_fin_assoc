@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import BlogIndexView from "../../../components/views/BlogIndexView.astro";
+import Layout from "../../../layouts/Layout.astro";
+
+const allPosts = (await getCollection("blog"))
+  .filter((post) => post.id.startsWith("it/"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout
+  title="Blog — Starting Finance Club USI"
+  description="Ricerca, analisi e approfondimenti dallo Starting Finance Club dell'USI."
+>
+  <BlogIndexView posts={allPosts} lang="it" />
+</Layout>

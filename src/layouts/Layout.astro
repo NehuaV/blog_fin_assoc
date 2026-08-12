@@ -1,7 +1,10 @@
 ---
+import { getRelativeLocaleUrlList } from "astro:i18n";
 import "../styles/global.css";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import { defaultLang, languages } from "../i18n/ui";
+import { isLang, useTranslations } from "../i18n/utils";
 
 interface Props {
   title: string;
@@ -9,9 +12,18 @@ interface Props {
   ogImage?: string;
 }
 
-const { title, description = "Starting Finance Club of Università della Svizzera italiana", ogImage } = Astro.props;
+const lang = isLang(Astro.currentLocale) ? Astro.currentLocale : defaultLang;
+const t = useTranslations(lang);
+
+const { title, description = t("site.description"), ogImage } = Astro.props;
+
+const { pathname } = Astro.url;
+const stripped = lang === defaultLang ? pathname : pathname.replace(new RegExp(`^/${lang}`), "") || "/";
+const canonicalPath = stripped === "/" ? "" : stripped;
+const localeUrls = getRelativeLocaleUrlList(canonicalPath);
+const localeCodes = Object.keys(languages) as Array<keyof typeof languages>;
 ---
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,6 +32,9 @@ const { title, description = "Starting Finance Club of Università della Svizzer
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {ogImage && <meta property="og:image" content={ogImage} />}
+    {localeCodes.map((code, i) => (
+      <link rel="alternate" hreflang={code} href={localeUrls[i]} />
+    ))}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

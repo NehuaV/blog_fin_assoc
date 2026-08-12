@@ -1,37 +1,61 @@
 ---
-const { pathname } = Astro.url;
+import { getRelativeLocaleUrl } from "astro:i18n";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+import { defaultLang } from "../i18n/ui";
+import { isLang, useTranslations } from "../i18n/utils";
 
-const isHome = pathname === "/";
-const isBlog = pathname.startsWith("/blog");
+const lang = isLang(Astro.currentLocale) ? Astro.currentLocale : defaultLang;
+const t = useTranslations(lang);
+
+const { pathname } = Astro.url;
+const localePrefix = lang === defaultLang ? "" : `/${lang}`;
+
+const isHome =
+  pathname === `${localePrefix}/` ||
+  pathname === localePrefix ||
+  pathname === "/";
+const isBlog = pathname.startsWith(`${localePrefix}/blog`);
+
+const homeHref = getRelativeLocaleUrl(lang, "");
+const blogHref = getRelativeLocaleUrl(lang, "blog");
 ---
+
 <header class="sticky top-0 z-40 bg-paper border-b-2 border-ink">
-  <nav class="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
-    <a href="/" class="font-black text-sm tracking-tight text-ink hover:text-pink transition-colors">
+  <nav
+    class="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between"
+  >
+    <a
+      href={homeHref}
+      class="font-black text-sm tracking-tight text-ink hover:text-pink transition-colors"
+    >
       Starting Finance Club · <span class="text-pink">USI</span>
     </a>
-    <ul class="flex gap-10 list-none m-0 p-0">
-      <li>
-        <a
-          href="/"
-          class:list={[
-            'text-sm font-semibold transition-colors',
-            isHome ? 'text-pink' : 'text-ink hover:text-pink',
-          ]}
-        >
-          Home
-        </a>
-      </li>
-      <li>
-        <a
-          href="/blog"
-          class:list={[
-            'text-sm font-semibold transition-colors',
-            isBlog ? 'text-pink' : 'text-ink hover:text-pink',
-          ]}
-        >
-          Blog
-        </a>
-      </li>
-    </ul>
+    <div class="flex items-center gap-8">
+      <ul class="flex gap-10 list-none m-0 p-0">
+        <li>
+          <a
+            href={homeHref}
+            class:list={[
+              "text-sm font-semibold transition-colors",
+              isHome ? "text-pink" : "text-ink hover:text-pink",
+            ]}
+          >
+            {t("nav.home")}
+          </a>
+        </li>
+        <li>
+          <a
+            href={blogHref}
+            class:list={[
+              "text-sm font-semibold transition-colors",
+              isBlog ? "text-pink" : "text-ink hover:text-pink",
+            ]}
+          >
+            {t("nav.blog")}
+          </a>
+        </li>
+      </ul>
+      <LanguageSwitcher />
+    </div>
   </nav>
 </header>

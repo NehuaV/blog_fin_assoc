@@ -1,38 +1,63 @@
 ---
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+import { defaultLang } from "../i18n/ui";
+import { isLang, useTranslations } from "../i18n/utils";
 
-const members = (await getCollection("team")).sort((a, b) => a.data.order - b.data.order);
+const lang = isLang(Astro.currentLocale) ? Astro.currentLocale : defaultLang;
+const t = useTranslations(lang);
+
+const members = (await getCollection("team"))
+  .filter((member) => member.id.startsWith(`${lang}/`))
+  .sort((a, b) => a.data.order - b.data.order);
 const roleColors = ["text-pink", "text-blue", "text-green"];
 ---
+
 <section id="team" class="bg-paper border-b-2 border-ink">
   <div class="max-w-6xl mx-auto px-6 sm:px-8">
     <div class="pt-14 pb-3 flex items-baseline gap-6 flex-wrap">
-      <span class="text-[0.68rem] font-bold tracking-[0.12em] uppercase text-muted whitespace-nowrap">
-        The Team
+      <span
+        class="text-[0.68rem] font-bold tracking-[0.12em] uppercase text-muted whitespace-nowrap"
+      >
+        {t("team.label")}
       </span>
       <h2 class="font-black text-3xl md:text-5xl tracking-tight leading-[1.05]">
-        Behind the <span class="text-pink">club.</span>
+        {t("team.titlePre")}
+        {" "}
+        <span class="text-pink">{t("team.titleAccent")}</span>
       </h2>
     </div>
 
-    <div class="border-t-2 border-ink grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-10 py-10">
-      {members.map((member, i) => (
-        <article>
-          <Image
-            src={member.data.photo}
-            alt={member.data.name}
-            width={112}
-            height={112}
-            class="zoomable-img rounded-full object-cover border-2 border-ink w-14 h-14 mb-3.5"
-          />
-          <h3 class="font-black text-sm tracking-tight mb-0.5">{member.data.name}</h3>
-          <p class:list={["text-xs font-bold mb-0.5", roleColors[i % roleColors.length]]}>
-            {member.data.role}
-          </p>
-          <p class="text-xs text-muted leading-relaxed">{member.data.description}</p>
-        </article>
-      ))}
+    <div
+      class="border-t-2 border-ink grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-10 py-10"
+    >
+      {
+        members.map((member, i) => (
+          <article>
+            <Image
+              src={member.data.photo}
+              alt={member.data.name}
+              width={112}
+              height={112}
+              class="rounded-full object-cover border-2 border-ink w-14 h-14 mb-3.5"
+            />
+            <h3 class="font-black text-sm tracking-tight mb-0.5">
+              {member.data.name}
+            </h3>
+            <p
+              class:list={[
+                "text-xs font-bold mb-0.5",
+                roleColors[i % roleColors.length],
+              ]}
+            >
+              {member.data.role}
+            </p>
+            <p class="text-xs text-muted leading-relaxed">
+              {member.data.description}
+            </p>
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>
