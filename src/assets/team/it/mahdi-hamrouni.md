@@ -1,6 +1,6 @@
 ---
 name: "Mahdi Hamrouni"
-role: "Vice President"
+role: "Vicepresidente"
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae."
 photo: "../mahdi-hamrouni.png"
 linkedin: "https://www.linkedin.com/in/mahdi-hamrouni/"

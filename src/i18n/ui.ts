@@ -44,10 +44,12 @@ export const ui = {
     "footer.tagline":
       "The community for USI students who want to understand markets, not just study them.",
     "footer.navigation": "Navigation",
+    "footer.disclaimer":
+      "Starting Finance Club is a student association active at Università della Svizzera italiana (USI). Student associations are autonomous entities and in no way represent USI, which cannot be held responsible for their content.",
 
     "site.title": "Starting Finance Club — USI",
     "site.description":
-      "Starting Finance Club of Università della Svizzera italiana",
+      "Starting Finance Club, a student association active at Università della Svizzera italiana (USI)",
   },
   it: {
     "nav.home": "Home",
@@ -85,9 +87,11 @@ export const ui = {
     "footer.tagline":
       "La community degli studenti USI che vogliono capire i mercati, non solo studiarli.",
     "footer.navigation": "Navigazione",
+    "footer.disclaimer":
+      "Starting Finance Club è un'associazione studentesca attiva all'Università della Svizzera italiana (USI). Le associazioni studentesche sono entità autonome e non rappresentano in nessun caso l'USI, che non può essere ritenuta responsabile dei loro contenuti.",
 
     "site.title": "Starting Finance Club — USI",
     "site.description":
-      "Starting Finance Club dell'Università della Svizzera italiana",
+      "Starting Finance Club, un'associazione studentesca attiva all'Università della Svizzera italiana (USI)",
   },
 } as const;
