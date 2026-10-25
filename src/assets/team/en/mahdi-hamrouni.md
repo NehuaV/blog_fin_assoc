@@ -1,7 +1,7 @@
 ---
 name: "Mahdi Hamrouni"
 role: "Vice President"
-description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae."
+description: "Bachelor's student in Data Science and Artificial Intelligence at SUPSI. Vice President of Starting Finance Club USI."
 photo: "../mahdi-hamrouni.png"
 linkedin: "https://www.linkedin.com/in/mahdi-hamrouni/"
 order: 2
