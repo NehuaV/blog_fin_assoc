@@ -27,6 +27,10 @@ export const ui = {
     "events.calendar": "Calendar",
     "events.titlePre": "Upcoming",
     "events.titleAccent": "events.",
+    "events.emptyTitle": "No upcoming events scheduled at the moment.",
+    "events.emptyBody":
+      "We're planning our next workshops, speaker talks, and campus meetups. Follow us on Instagram to hear first when new dates drop.",
+    "events.emptyCta": "Follow @sfclubusi →",
 
     "blog.insights": "Insights",
     "blog.latestPre": "Latest",
@@ -36,6 +40,7 @@ export const ui = {
     "blog.featured": "Featured",
     "blog.gallery": "Gallery",
     "blog.photos": "Photos",
+    "blog.empty": "No posts published yet.",
 
     "team.label": "The Team",
     "team.titlePre": "Behind the",
@@ -68,6 +73,10 @@ export const ui = {
     "events.calendar": "Calendario",
     "events.titlePre": "Prossimi",
     "events.titleAccent": "eventi.",
+    "events.emptyTitle": "Nessun evento in programma al momento.",
+    "events.emptyBody":
+      "Stiamo organizzando i prossimi workshop, talk con ospiti e incontri in campus. Seguici su Instagram per scoprire subito le nuove date.",
+    "events.emptyCta": "Segui @sfclubusi →",
 
     "blog.insights": "Approfondimenti",
     "blog.latestPre": "Ultimi",
@@ -77,6 +86,7 @@ export const ui = {
     "blog.featured": "In evidenza",
     "blog.gallery": "Galleria",
     "blog.photos": "Foto",
+    "blog.empty": "Nessun articolo pubblicato al momento.",
 
     "team.label": "Il Team",
     "team.titlePre": "Dietro al",

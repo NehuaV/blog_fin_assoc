@@ -1,22 +1,28 @@
-import { getCollection } from "astro:content";
 import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
+import { getVisibleBlogPosts } from "../lib/collections";
 
 export async function GET(context: APIContext) {
-  const posts = await getCollection("blog");
+  const site =
+    context.site ??
+    (import.meta.env.SITE ? new URL(import.meta.env.SITE) : undefined);
+  if (!site) {
+    throw new Error(
+      "Site URL is not configured. Set SITE_URL in .env or astro.config.mjs.",
+    );
+  }
+
+  const posts = await getVisibleBlogPosts("en");
   return rss({
     title: "Starting Finance Club USI",
     description:
       "Research, analysis, and insights from USI's Starting Finance Club.",
-    site: context.site ?? new URL("http://localhost:4321"),
-    items: posts
-      .filter((post) => post.id.startsWith("en/"))
-      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-      .map((post) => ({
-        title: post.data.title,
-        pubDate: post.data.pubDate,
-        description: post.data.description,
-        link: `/blog/${post.id.slice("en/".length)}/`,
-      })),
+    site,
+    items: posts.map((post) => ({
+      title: post.data.title,
+      pubDate: post.data.pubDate,
+      description: post.data.description,
+      link: `/blog/${post.id.slice("en/".length)}/`,
+    })),
   });
 }

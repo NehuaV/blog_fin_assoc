@@ -2,11 +2,13 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { defaultLang } from "../i18n/ui";
 import { isLang, useTranslations } from "../i18n/utils";
+import { hasVisibleBlogPosts } from "../lib/collections";
 
 const lang = isLang(Astro.currentLocale) ? Astro.currentLocale : defaultLang;
 const t = useTranslations(lang);
 
 const blogHref = getRelativeLocaleUrl(lang, "blog");
+const hasPosts = await hasVisibleBlogPosts(lang);
 ---
 
 <section class="bg-paper border-b-2 border-ink pt-20 pb-16">
@@ -27,12 +29,16 @@ const blogHref = getRelativeLocaleUrl(lang, "blog");
       {t("hero.subtitle")}
     </p>
     <div class="flex gap-4 flex-wrap">
-      <a
-        href={blogHref}
-        class="inline-flex items-center gap-2 bg-ink text-paper border-2 border-ink rounded-full px-7 py-3.5 font-bold text-sm hover:bg-pink hover:border-pink transition-colors"
-      >
-        {t("hero.ctaBlog")}
-      </a>
+      {
+        hasPosts && (
+          <a
+            href={blogHref}
+            class="inline-flex items-center gap-2 bg-ink text-paper border-2 border-ink rounded-full px-7 py-3.5 font-bold text-sm hover:bg-pink hover:border-pink transition-colors"
+          >
+            {t("hero.ctaBlog")}
+          </a>
+        )
+      }
       <a
         href="#team"
         class="inline-flex items-center gap-2 border-2 border-ink text-ink rounded-full px-7 py-3.5 font-bold text-sm hover:bg-ink hover:text-paper transition-colors"

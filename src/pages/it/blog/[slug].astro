@@ -1,16 +1,14 @@
 ---
-import { getCollection } from "astro:content";
 import BlogPostView from "../../../components/views/BlogPostView.astro";
 import Layout from "../../../layouts/Layout.astro";
+import { getVisibleBlogPosts } from "../../../lib/collections";
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection("blog");
-  return blogEntries
-    .filter((entry) => entry.id.startsWith("it/"))
-    .map((entry) => ({
-      params: { slug: entry.id.slice("it/".length) },
-      props: { entry },
-    }));
+  const blogEntries = await getVisibleBlogPosts("it");
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.id.slice("it/".length) },
+    props: { entry },
+  }));
 }
 
 const { entry } = Astro.props;
@@ -20,6 +18,7 @@ const { entry } = Astro.props;
   title={`${entry.data.title} — Starting Finance Club USI`}
   description={entry.data.description}
   ogImage={entry.data.coverImage.src}
+  ogType="article"
 >
   <BlogPostView entry={entry} lang="it" />
 </Layout>

@@ -10,12 +10,18 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  ogType?: "website" | "article";
 }
 
 const lang = isLang(Astro.currentLocale) ? Astro.currentLocale : defaultLang;
 const t = useTranslations(lang);
 
-const { title, description = t("site.description"), ogImage } = Astro.props;
+const {
+  title,
+  description = t("site.description"),
+  ogImage,
+  ogType = "website",
+} = Astro.props;
 
 const { pathname } = Astro.url;
 const stripped =
@@ -25,6 +31,16 @@ const stripped =
 const canonicalPath = stripped === "/" ? "" : stripped;
 const localeUrls = getRelativeLocaleUrlList(canonicalPath);
 const localeCodes = Object.keys(languages) as Array<keyof typeof languages>;
+
+const toAbsoluteUrl = (path: string) =>
+  Astro.site ? new URL(path, Astro.site).href : path;
+
+const canonicalUrl = toAbsoluteUrl(pathname);
+const absoluteOgImage = ogImage ? toAbsoluteUrl(ogImage) : undefined;
+const rssPath = lang === defaultLang ? "/rss.xml" : `/${lang}/rss.xml`;
+const rssUrl = toAbsoluteUrl(rssPath);
+const ogLocale = lang === "it" ? "it_IT" : "en_GB";
+const ogAlternateLocale = lang === "it" ? "en_GB" : "it_IT";
 ---
 
 <html lang={lang}>
@@ -33,14 +49,33 @@ const localeCodes = Object.keys(languages) as Array<keyof typeof languages>;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={t("site.title")}
+      href={rssUrl}
+    />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={t("site.title")} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogAlternateLocale} />
+    {absoluteOgImage && <meta property="og:image" content={absoluteOgImage} />}
     {
       localeCodes.map((code, i) => (
-        <link rel="alternate" hreflang={code} href={localeUrls[i]} />
+        <link rel="alternate" hreflang={code} href={toAbsoluteUrl(localeUrls[i])} />
       ))
     }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={toAbsoluteUrl(localeUrls[0])}
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

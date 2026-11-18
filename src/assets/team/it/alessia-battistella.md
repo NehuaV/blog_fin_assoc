@@ -5,4 +5,5 @@ description: "Studentessa di Master in Financial Technology all'USI. Presidente 
 photo: "../alessia-battistella.png"
 linkedin: "https://www.linkedin.com/in/alessia-battistella-627584238/"
 order: 1
+hide: false
 ---

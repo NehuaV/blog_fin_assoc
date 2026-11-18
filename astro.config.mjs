@@ -7,10 +7,14 @@ import { defineConfig } from 'astro/config';
 import { loadEnv } from 'vite';
 
 // astro.config.mjs runs before Astro/Vite's own env loading, so local .env
-// files aren't in `process.env` yet here. Load them in explicitly — this
-// never overrides real OS/CI environment variables (e.g. Vercel's own
-// system env vars), it only fills in gaps from .env* files.
-Object.assign(process.env, loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), ''));
+// files aren't in `process.env` yet here. Fill in unset env vars from .env*
+// files without overwriting real OS/CI environment variables (e.g. Vercel's).
+const loadedEnv = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), '');
+for (const [key, value] of Object.entries(loadedEnv)) {
+	if (process.env[key] === undefined && value.trim() !== '') {
+		process.env[key] = value;
+	}
+}
 
 /**
  * @param {string} url
@@ -18,14 +22,17 @@ Object.assign(process.env, loadEnv(process.env.NODE_ENV ?? 'production', process
  */
 const stripTrailingSlash = (url) => url.replace(/\/+$/, '');
 
+const siteUrl = process.env.SITE_URL?.trim();
+const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+
 // SITE_URL (set in .env for local/non-Vercel builds) takes a full URL and
 // wins if present. Otherwise fall back to Vercel's auto-injected
 // VERCEL_PROJECT_PRODUCTION_URL (a bare hostname, no protocol). Otherwise
 // default to localhost for local dev.
-const site = process.env.SITE_URL
-	? stripTrailingSlash(process.env.SITE_URL)
-	: process.env.VERCEL_PROJECT_PRODUCTION_URL
-		? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+const site = siteUrl
+	? stripTrailingSlash(siteUrl)
+	: vercelUrl
+		? `https://${stripTrailingSlash(vercelUrl)}`
 		: 'http://localhost:4321';
 
 export default defineConfig({

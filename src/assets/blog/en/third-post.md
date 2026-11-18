@@ -5,6 +5,7 @@ description: "A primer on the SIX Swiss Exchange, SMI composition, and the uniqu
 coverImage: "../third-post/hero.jpg"
 coverAlt: "Swiss Exchange trading floor"
 author: "Carol Meier"
+hide: true
 ---
 
 Switzerland punches far above its weight in global finance. Despite a population of 8.7 million, it hosts some of the world's largest asset managers, two of Europe's top investment banks, and the SIX Swiss Exchange — one of the most liquid equity markets in Europe.

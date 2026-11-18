@@ -2,6 +2,14 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
+const optionalUrl = z.preprocess(
+  (val) =>
+    typeof val === "string" && val.trim() === ""
+      ? undefined
+      : (val ?? undefined),
+  z.url().optional(),
+);
+
 const blog = defineCollection({
   loader: glob({ base: "./src/assets/blog", pattern: "**/*.md" }),
   schema: ({ image }) =>
@@ -23,6 +31,7 @@ const blog = defineCollection({
         )
         .default([]),
       author: z.string().default("Anonymous"),
+      hide: z.boolean().default(false),
     }),
 });
 
@@ -32,10 +41,11 @@ const team = defineCollection({
     z.object({
       name: z.string(),
       role: z.string(),
-      description: z.string(),
+      description: z.string().optional().default(""),
       photo: image(),
-      linkedin: z.url(),
+      linkedin: optionalUrl,
       order: z.number().default(99),
+      hide: z.boolean().default(false),
     }),
 });
 
@@ -47,7 +57,7 @@ const events = defineCollection({
     time: z.string(),
     location: z.string(),
     tag: z.string().default("Event"),
-    link: z.url().optional(),
+    link: optionalUrl,
   }),
 });
 

@@ -1,11 +1,9 @@
 ---
-import { getCollection } from "astro:content";
 import BlogIndexView from "../../components/views/BlogIndexView.astro";
 import Layout from "../../layouts/Layout.astro";
+import { getVisibleBlogPosts } from "../../lib/collections";
 
-const allPosts = (await getCollection("blog"))
-  .filter((post) => post.id.startsWith("en/"))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const allPosts = await getVisibleBlogPosts("en");
 ---
 
 <Layout

@@ -5,6 +5,7 @@ description: "Una guida introduttiva alla SIX Swiss Exchange, alla composizione 
 coverImage: "../third-post/hero.jpg"
 coverAlt: "Sala operativa della Borsa Svizzera"
 author: "Carol Meier"
+hide: true
 ---
 
 La Svizzera pesa molto più della sua dimensione nella finanza globale. Con una popolazione di 8,7 milioni di abitanti, ospita alcuni dei più grandi gestori patrimoniali al mondo, due delle principali banche d'investimento europee e la SIX Swiss Exchange — uno dei mercati azionari più liquidi d'Europa.
